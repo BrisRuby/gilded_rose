@@ -51,7 +51,7 @@ class SulfurasEvaluator < SimpleDelegator
   end
 end
 
-class PassEvaluator < ItemEvaluator
+class PassEvaluator < SimpleDelegator
   def step_1
     if quality < 50
       self.quality += 1
