@@ -7,31 +7,26 @@ def update_quality(items)
   end
 end
 
-class QualityAdjuster
-  attr_reader :item
-  def initialize(item)
-    @item = item
-  end
-
+class QualityAdjuster < SimpleDelegator
   def step_1
-    if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
-      if item.quality > 0
-        if item.name != 'Sulfuras, Hand of Ragnaros'
-          item.quality -= 1
+    if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
+      if quality > 0
+        if name != 'Sulfuras, Hand of Ragnaros'
+          self.quality -= 1
         end
       end
     else
-      if item.quality < 50
-        item.quality += 1
-        if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-          if item.sell_in < 11
-            if item.quality < 50
-              item.quality += 1
+      if quality < 50
+        self.quality += 1
+        if name == 'Backstage passes to a TAFKAL80ETC concert'
+          if sell_in < 11
+            if quality < 50
+              self.quality += 1
             end
           end
-          if item.sell_in < 6
-            if item.quality < 50
-              item.quality += 1
+          if sell_in < 6
+            if quality < 50
+              self.quality += 1
             end
           end
         end
@@ -40,26 +35,26 @@ class QualityAdjuster
   end
 
   def step_2
-    if item.name != 'Sulfuras, Hand of Ragnaros'
-      item.sell_in -= 1
+    if name != 'Sulfuras, Hand of Ragnaros'
+      self.sell_in -= 1
     end
   end
 
   def step_3
-    if item.sell_in < 0
-      if item.name != 'Aged Brie'
-        if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-          if item.quality > 0
-            if item.name != 'Sulfuras, Hand of Ragnaros'
-              item.quality -= 1
+    if sell_in < 0
+      if name != 'Aged Brie'
+        if name != 'Backstage passes to a TAFKAL80ETC concert'
+          if quality > 0
+            if name != 'Sulfuras, Hand of Ragnaros'
+              self.quality -= 1
             end
           end
         else
-          item.quality = item.quality - item.quality
+          self.quality = quality - quality
         end
       else
-        if item.quality < 50
-          item.quality += 1
+        if quality < 50
+          self.quality += 1
         end
       end
     end
