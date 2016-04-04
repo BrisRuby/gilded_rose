@@ -120,10 +120,6 @@ class AgedBrieEvaluator < ItemProcessor
       self.quality += 1
     end
   end
-
-  def decrement_sell_in
-    self.sell_in -= 1
-  end
 end
 
 class ConjuredEvaluator < ItemProcessor
@@ -136,10 +132,6 @@ class ConjuredEvaluator < ItemProcessor
   end
 
   private
-
-  def decrement_sell_in
-    self.sell_in -= 1
-  end
 
   def decrement_quality
     if sell_in > 0
