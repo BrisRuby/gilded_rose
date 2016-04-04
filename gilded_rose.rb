@@ -67,27 +67,25 @@ end
 
 class PassEvaluator < ItemEvaluator
   def step_1
-    if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
-      if quality > 0
-        self.quality -= 1
+    if quality < 50
+      self.quality += 1
+      if sell_in < 11
+        if quality < 50
+          self.quality += 1
+        end
       end
-    else
-      if quality < 50
-        self.quality += 1
-        if name == 'Backstage passes to a TAFKAL80ETC concert'
-          if sell_in < 11
-            if quality < 50
-              self.quality += 1
-            end
-          end
-          if sell_in < 6
-            if quality < 50
-              self.quality += 1
-            end
-          end
+      if sell_in < 6
+        if quality < 50
+          self.quality += 1
         end
       end
     end
+  end
+
+  def process
+    step_1
+    step_2
+    step_3
   end
 end
 
