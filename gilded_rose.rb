@@ -8,25 +8,13 @@ end
 
 class ItemEvaluator < SimpleDelegator
   def step_1
-    if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
+    if name != 'Aged Brie'
       if quality > 0
         self.quality -= 1
       end
     else
       if quality < 50
         self.quality += 1
-        if name == 'Backstage passes to a TAFKAL80ETC concert'
-          if sell_in < 11
-            if quality < 50
-              self.quality += 1
-            end
-          end
-          if sell_in < 6
-            if quality < 50
-              self.quality += 1
-            end
-          end
-        end
       end
     end
   end
@@ -42,8 +30,6 @@ class ItemEvaluator < SimpleDelegator
           if quality > 0
             self.quality -= 1
           end
-        else
-          self.quality = quality - quality
         end
       else
         if quality < 50
