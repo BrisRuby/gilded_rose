@@ -61,12 +61,12 @@ class PassEvaluator < ItemProcessor
   def process
     increase_quality_if_able
     decrement_sell_in
-    expire_goods_if_able
+    pass_is_worthless_if_event_over
   end
 
   private
 
-  def expire_goods_if_able
+  def pass_worthless_if_event_over
     if expired?
       self.quality = 0
     end
@@ -137,10 +137,14 @@ class ConjuredEvaluator < ItemProcessor
   def process
     decrement_quality
     self.quality = 0 if broken?
-    self.sell_in -= 1
+    decrement_sell_in
   end
 
   private
+
+  def decrement_sell_in
+    self.sell_in -= 1
+  end
 
   def decrement_quality
     if sell_in > 0
