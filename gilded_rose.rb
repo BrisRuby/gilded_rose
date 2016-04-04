@@ -106,16 +106,18 @@ end
 
 class ConjuredEvaluator < ItemProcessor
   def process
+    return quality if broken?
     if sell_in > 0
       self.quality -= 2
     end
     if sell_in <= 0
       self.quality -= 4
     end
-    if self.quality <= 0
-      self.quality = 0
-    end
     self.sell_in -= 1
+  end
+
+  def broken?
+    quality == 0
   end
 end
 
