@@ -26,7 +26,7 @@ class ItemEvaluator < ItemProcessor
   end
 
   def step_3
-    if sell_in < 0
+    if expired?
       decrement_quality
     end
   end
@@ -38,6 +38,10 @@ class ItemEvaluator < ItemProcessor
   end
 
   private
+
+  def expired?
+    sell_in < 0
+  end
 
   def usable?
     quality < 0
