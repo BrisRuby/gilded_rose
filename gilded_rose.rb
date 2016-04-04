@@ -96,25 +96,34 @@ end
 
 class AgedBrieEvaluator < ItemProcessor
 
-  def step_3
-    if sell_in < 0
-      if quality < 50
-        self.quality += 1
-      end
-    end
-  end
 
   def process
     increment_quality
     decrement_sell_in
-    step_3
+    age_cheese
   end
 
 
   private
 
+  def age_cheese
+    if expired?
+      if quality_below_average?
+        self.quality += 1
+      end
+    end
+  end
+
+  def expired?
+    sell_in < 0
+  end
+
+  def quality_below_average?
+    quality < 50
+  end
+
   def increment_quality
-    if quality < 50
+    if quality_below_average?
       self.quality += 1
     end
   end
