@@ -37,7 +37,7 @@ class ItemEvaluator < ItemProcessor
   end
 
   def usable?
-    quality < 0
+    quality > 0
   end
 
   def decrement_quality
