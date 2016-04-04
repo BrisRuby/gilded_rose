@@ -17,24 +17,13 @@ end
 
 
 class ItemEvaluator < ItemProcessor
-  def step_1
+
+  def process
     decrement_quality
-  end
-
-  def step_2
     self.sell_in -= 1
-  end
-
-  def step_3
     if expired?
       decrement_quality
     end
-  end
-
-  def process
-    step_1
-    step_2
-    step_3
   end
 
   private
