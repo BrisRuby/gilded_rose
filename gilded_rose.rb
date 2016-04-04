@@ -18,9 +18,7 @@ end
 
 class ItemEvaluator < ItemProcessor
   def step_1
-    if quality > 0
-      self.quality -= 1
-    end
+    decrement_quality
   end
 
   def step_2
@@ -29,9 +27,7 @@ class ItemEvaluator < ItemProcessor
 
   def step_3
     if sell_in < 0
-      if quality > 0
-        self.quality -= 1
-      end
+      decrement_quality
     end
   end
 
@@ -39,6 +35,18 @@ class ItemEvaluator < ItemProcessor
     step_1
     step_2
     step_3
+  end
+
+  private
+
+  def usable?
+    quality < 0
+  end
+
+  def decrement_quality
+    if usable?
+      self.quality -= 1
+    end
   end
 end
 
@@ -110,6 +118,8 @@ class ConjuredEvaluator < ItemProcessor
     self.quality = 0 if broken?
     self.sell_in -= 1
   end
+
+  private
 
   def decrement_quality
     if sell_in > 0
