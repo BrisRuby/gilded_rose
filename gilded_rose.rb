@@ -66,6 +66,8 @@ class SulfurasEvaluator < SimpleDelegator
 end
 
 class PassEvaluator < ItemEvaluator
+  def step_1
+  end
 end
 
 class DecoratorFactory
