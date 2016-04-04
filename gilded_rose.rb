@@ -6,7 +6,17 @@ def update_quality(items)
 end
 
 
-class ItemEvaluator < SimpleDelegator
+class ItemProcessor < SimpleDelegator
+  def process
+    raise NotYetImplementedError
+  end
+end
+
+class NotYetImplementedError < StandardError
+end
+
+
+class ItemEvaluator < ItemProcessor
   def step_1
     if quality > 0
       self.quality -= 1
@@ -32,12 +42,12 @@ class ItemEvaluator < SimpleDelegator
   end
 end
 
-class SulfurasEvaluator < SimpleDelegator
+class SulfurasEvaluator < ItemProcessor
   def process
   end
 end
 
-class PassEvaluator < SimpleDelegator
+class PassEvaluator < ItemProcessor
   def step_1
     if quality < 50
       self.quality += 1
@@ -67,7 +77,7 @@ class PassEvaluator < SimpleDelegator
   end
 end
 
-class AgedBrieEvaluator < SimpleDelegator
+class AgedBrieEvaluator < ItemProcessor
 
   def step_1
     if quality < 50
