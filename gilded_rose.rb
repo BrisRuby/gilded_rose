@@ -65,9 +65,6 @@ class PassEvaluator < ItemProcessor
     end
   end
 
-  def step_2
-    self.sell_in -= 1
-  end
 
   def step_3
     if sell_in < 0
@@ -77,8 +74,14 @@ class PassEvaluator < ItemProcessor
 
   def process
     step_1
-    step_2
+    decrement_sell_in
     step_3
+  end
+
+  private
+
+  def decrement_sell_in
+    self.sell_in -= 1
   end
 end
 
