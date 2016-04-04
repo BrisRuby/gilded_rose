@@ -84,14 +84,8 @@ end
 class AgedBrieEvaluator < ItemEvaluator
 
   def step_1
-    if name != 'Aged Brie'
-      if quality > 0
-        self.quality -= 1
-      end
-    else
-      if quality < 50
-        self.quality += 1
-      end
+    if quality < 50
+      self.quality += 1
     end
   end
 end
