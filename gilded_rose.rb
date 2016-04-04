@@ -88,13 +88,7 @@ class PassEvaluator < ItemEvaluator
 
   def step_3
     if sell_in < 0
-      if name != 'Backstage passes to a TAFKAL80ETC concert'
-        if quality > 0
-          self.quality -= 1
-        end
-      else
-        self.quality = quality - quality
-      end
+      self.quality = quality - quality
     end
   end
 
