@@ -98,7 +98,7 @@ end
 
 class DecoratorFactory
   attr_reader :decorator
-  ClassMaps = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator, 'Backstage passes to a TAFKAL80ETC concert' => PassEvaluator }
+  ClassMaps = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator, 'Backstage passes to a TAFKAL80ETC concert' => PassEvaluator, 'Aged Brie' => AgedBrieEvaluator }
   def initialize(item)
 
     decorator_class = ClassMaps[item.name] || ItemEvaluator
