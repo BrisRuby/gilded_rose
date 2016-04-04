@@ -21,12 +21,16 @@ class ItemEvaluator < ItemProcessor
   def process
     decrement_quality
     decrement_sell_in
+    expiration_effect
+  end
+
+  private
+
+  def expiration_effect
     if expired?
       decrement_quality
     end
   end
-
-  private
 
   def decrement_sell_in
     self.sell_in -= 1
@@ -54,16 +58,19 @@ end
 
 class PassEvaluator < ItemProcessor
 
-
   def process
     increase_quality_if_able
     decrement_sell_in
-    if expired?
-      self.quality = quality - quality
-    end
+    expire_goods_if_able
   end
 
   private
+
+  def expire_goods_if_able
+    if expired?
+      self.quality = 0
+    end
+  end
 
   def increase_quality_if_able
     if quality < 50
