@@ -67,21 +67,6 @@ class ItemEvaluator < SimpleDelegator
 end
 
 class SulfurasEvaluator < SimpleDelegator
-  def step_1
-    if quality < 50
-      self.quality += 1
-    end
-  end
-
-  def step_2
-  end
-
-  def step_3
-    if quality < 50
-      self.quality += 1
-    end
-  end
-
   def process
   end
 end
