@@ -2,6 +2,7 @@ def update_quality(items)
   items.each do |item|
     step_1(item)
     step_2(item)
+    step_3(item)
   end
 end
 
