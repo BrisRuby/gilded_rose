@@ -11,6 +11,10 @@ module Perishable
   def perish
     self.sell_in -= 1
   end
+
+  def expired?
+    sell_in < 0
+  end
 end
 
 
@@ -39,10 +43,6 @@ class ItemEvaluator < ItemProcessor
     if expired?
       decrement_quality
     end
-  end
-
-  def expired?
-    sell_in < 0
   end
 
   def usable?
@@ -89,10 +89,6 @@ class PassEvaluator < ItemProcessor
       end
     end
   end
-
-  def expired?
-    sell_in < 0
-  end
 end
 
 class AgedBrieEvaluator < ItemProcessor
@@ -113,10 +109,6 @@ class AgedBrieEvaluator < ItemProcessor
         self.quality += 1
       end
     end
-  end
-
-  def expired?
-    sell_in < 0
   end
 
   def quality_below_average?
