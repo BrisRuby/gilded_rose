@@ -1,62 +1,72 @@
 def update_quality(items)
   items.each do |item|
-    step_1(item)
-    step_2(item)
-    step_3(item)
+    quality_adjuster = QualityAdjuster.new(item)
+    quality_adjuster.step_1(item)
+    quality_adjuster.step_2(item)
+    quality_adjuster.step_3(item)
   end
 end
 
-def step_1(item)
-  if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
-    if item.quality > 0
-      if item.name != 'Sulfuras, Hand of Ragnaros'
-        item.quality -= 1
-      end
-    end
-  else
-    if item.quality < 50
-      item.quality += 1
-      if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-        if item.sell_in < 11
-          if item.quality < 50
-            item.quality += 1
-          end
-        end
-        if item.sell_in < 6
-          if item.quality < 50
-            item.quality += 1
-          end
-        end
-      end
-    end
+class QualityAdjuster
+  attr_reader :item
+  def initialize(item)
+    @item = item
   end
-end
 
-def step_2(item)
-  if item.name != 'Sulfuras, Hand of Ragnaros'
-    item.sell_in -= 1
-  end
-end
-
-def step_3(item)
-  if item.sell_in < 0
-    if item.name != 'Aged Brie'
-      if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-        if item.quality > 0
-          if item.name != 'Sulfuras, Hand of Ragnaros'
-            item.quality -= 1
-          end
+  def step_1(item)
+    if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
+      if item.quality > 0
+        if item.name != 'Sulfuras, Hand of Ragnaros'
+          item.quality -= 1
         end
-      else
-        item.quality = item.quality - item.quality
       end
     else
       if item.quality < 50
         item.quality += 1
+        if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+          if item.sell_in < 11
+            if item.quality < 50
+              item.quality += 1
+            end
+          end
+          if item.sell_in < 6
+            if item.quality < 50
+              item.quality += 1
+            end
+          end
+        end
       end
     end
   end
+
+  def step_2(item)
+    if item.name != 'Sulfuras, Hand of Ragnaros'
+      item.sell_in -= 1
+    end
+  end
+
+  def step_3(item)
+    if item.sell_in < 0
+      if item.name != 'Aged Brie'
+        if item.name != 'Backstage passes to a TAFKAL80ETC concert'
+          if item.quality > 0
+            if item.name != 'Sulfuras, Hand of Ragnaros'
+              item.quality -= 1
+            end
+          end
+        else
+          item.quality = item.quality - item.quality
+        end
+      else
+        if item.quality < 50
+          item.quality += 1
+        end
+      end
+    end
+  end
+
 end
+
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
