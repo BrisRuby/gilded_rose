@@ -53,7 +53,19 @@ class SulfurasEvaluator < ItemProcessor
 end
 
 class PassEvaluator < ItemProcessor
-  def step_1
+
+
+  def process
+    increase_quality_if_able
+    decrement_sell_in
+    if expired?
+      self.quality = quality - quality
+    end
+  end
+
+  private
+
+  def increase_quality_if_able
     if quality < 50
       self.quality += 1
       if sell_in < 11
@@ -65,24 +77,14 @@ class PassEvaluator < ItemProcessor
     end
   end
 
-
-  def step_3
-    if sell_in < 0
-      self.quality = quality - quality
-    end
+  def expired?
+    sell_in < 0
   end
-
-  def process
-    step_1
-    decrement_sell_in
-    step_3
-  end
-
-  private
 
   def decrement_sell_in
     self.sell_in -= 1
   end
+
 end
 
 class AgedBrieEvaluator < ItemProcessor
