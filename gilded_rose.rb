@@ -104,9 +104,25 @@ class AgedBrieEvaluator < ItemProcessor
   end
 end
 
+class ConjuredEvaluator < ItemProcessor
+  def process
+    if sell_in > 0
+      self.quality -= 2
+    end
+    if sell_in <= 0
+      self.quality -= 4
+    end
+    if self.quality <= 0
+      self.quality = 0
+    end
+    self.sell_in -= 1
+  end
+end
+
 class DecoratorFactory
   attr_reader :decorator
-  ClassMaps = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator, 'Backstage passes to a TAFKAL80ETC concert' => PassEvaluator, 'Aged Brie' => AgedBrieEvaluator }
+  ClassMaps = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator, 'Backstage passes to a TAFKAL80ETC concert' => PassEvaluator, 
+                'Aged Brie' => AgedBrieEvaluator, 'Conjured Mana Cake' => ConjuredEvaluator }
   def initialize(item)
 
     decorator_class = ClassMaps[item.name] || ItemEvaluator
