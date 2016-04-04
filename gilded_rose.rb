@@ -70,14 +70,10 @@ class PassEvaluator < ItemEvaluator
     if quality < 50
       self.quality += 1
       if sell_in < 11
-        if quality < 50
-          self.quality += 1
-        end
+        self.quality += 1
       end
       if sell_in < 6
-        if quality < 50
-          self.quality += 1
-        end
+        self.quality += 1
       end
     end
   end
