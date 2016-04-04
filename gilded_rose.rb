@@ -1,9 +1,9 @@
 def update_quality(items)
   items.each do |item|
     quality_adjuster = QualityAdjuster.new(item)
-    quality_adjuster.step_1(item)
-    quality_adjuster.step_2(item)
-    quality_adjuster.step_3(item)
+    quality_adjuster.step_1
+    quality_adjuster.step_2
+    quality_adjuster.step_3
   end
 end
 
@@ -13,7 +13,7 @@ class QualityAdjuster
     @item = item
   end
 
-  def step_1(item)
+  def step_1
     if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
       if item.quality > 0
         if item.name != 'Sulfuras, Hand of Ragnaros'
@@ -39,13 +39,13 @@ class QualityAdjuster
     end
   end
 
-  def step_2(item)
+  def step_2
     if item.name != 'Sulfuras, Hand of Ragnaros'
       item.sell_in -= 1
     end
   end
 
-  def step_3(item)
+  def step_3
     if item.sell_in < 0
       if item.name != 'Aged Brie'
         if item.name != 'Backstage passes to a TAFKAL80ETC concert'
