@@ -10,9 +10,7 @@ class ItemEvaluator < SimpleDelegator
   def step_1
     if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
       if quality > 0
-        if name != 'Sulfuras, Hand of Ragnaros'
-          self.quality -= 1
-        end
+        self.quality -= 1
       end
     else
       if quality < 50
@@ -34,9 +32,7 @@ class ItemEvaluator < SimpleDelegator
   end
 
   def step_2
-    if name != 'Sulfuras, Hand of Ragnaros'
-      self.sell_in -= 1
-    end
+    self.sell_in -= 1
   end
 
   def step_3
@@ -44,9 +40,7 @@ class ItemEvaluator < SimpleDelegator
       if name != 'Aged Brie'
         if name != 'Backstage passes to a TAFKAL80ETC concert'
           if quality > 0
-            if name != 'Sulfuras, Hand of Ragnaros'
-              self.quality -= 1
-            end
+            self.quality -= 1
           end
         else
           self.quality = quality - quality
