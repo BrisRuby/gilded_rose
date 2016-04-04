@@ -1,13 +1,13 @@
 def update_quality(items)
   items.each do |item|
-    quality_adjuster = QualityAdjuster.new(item)
+    quality_adjuster = ItemEvaluator.new(item)
     quality_adjuster.step_1
     quality_adjuster.step_2
     quality_adjuster.step_3
   end
 end
 
-class QualityAdjuster < SimpleDelegator
+class ItemEvaluator < SimpleDelegator
   def step_1
     if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
       if quality > 0
