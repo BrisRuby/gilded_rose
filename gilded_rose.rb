@@ -65,12 +65,15 @@ class SulfurasEvaluator < SimpleDelegator
   end
 end
 
+class PassEvaluator < ItemEvaluator
+end
+
 class DecoratorFactory
   attr_reader :decorator
-  FACTORIES = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator }
+  ClassMaps = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator, 'Backstage passes to a TAFKAL80ETC concert' => PassEvaluator }
   def initialize(item)
 
-    decorator_class = FACTORIES[item.name] || ItemEvaluator
+    decorator_class = ClassMaps[item.name] || ItemEvaluator
     @decorator = decorator_class.new(item)
   end
 end
