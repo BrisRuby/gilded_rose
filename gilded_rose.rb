@@ -92,6 +92,22 @@ class AgedBrieEvaluator < ItemEvaluator
   def step_2
     self.sell_in -= 1
   end
+
+  def step_3
+    if sell_in < 0
+      if name != 'Aged Brie'
+        if name != 'Backstage passes to a TAFKAL80ETC concert'
+          if quality > 0
+            self.quality -= 1
+          end
+        end
+      else
+        if quality < 50
+          self.quality += 1
+        end
+      end
+    end
+  end
 end
 
 class DecoratorFactory
