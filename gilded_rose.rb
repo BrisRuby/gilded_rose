@@ -88,6 +88,10 @@ class AgedBrieEvaluator < ItemEvaluator
       self.quality += 1
     end
   end
+
+  def step_2
+    self.sell_in -= 1
+  end
 end
 
 class DecoratorFactory
