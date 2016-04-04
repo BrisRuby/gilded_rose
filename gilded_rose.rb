@@ -81,6 +81,9 @@ class PassEvaluator < SimpleDelegator
   end
 end
 
+class AgedBrieEvaluator < ItemEvaluator
+end
+
 class DecoratorFactory
   attr_reader :decorator
   ClassMaps = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator, 'Backstage passes to a TAFKAL80ETC concert' => PassEvaluator }
