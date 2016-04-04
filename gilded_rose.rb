@@ -5,6 +5,14 @@ def update_quality(items)
   end
 end
 
+module Perishable
+  private
+
+  def perish
+    self.sell_in -= 1
+  end
+end
+
 
 class ItemProcessor < SimpleDelegator
   def process
@@ -17,10 +25,11 @@ end
 
 
 class ItemEvaluator < ItemProcessor
+  include Perishable
 
   def process
     decrement_quality
-    decrement_sell_in
+    perish
     expiration_effect
   end
 
@@ -30,10 +39,6 @@ class ItemEvaluator < ItemProcessor
     if expired?
       decrement_quality
     end
-  end
-
-  def decrement_sell_in
-    self.sell_in -= 1
   end
 
   def expired?
@@ -57,16 +62,17 @@ class SulfurasEvaluator < ItemProcessor
 end
 
 class PassEvaluator < ItemProcessor
+  include Perishable
 
   def process
     increase_quality_if_able
-    decrement_sell_in
+    perish
     pass_is_worthless_if_event_over
   end
 
   private
 
-  def pass_worthless_if_event_over
+  def pass_is_worthless_if_event_over
     if expired?
       self.quality = 0
     end
@@ -87,19 +93,14 @@ class PassEvaluator < ItemProcessor
   def expired?
     sell_in < 0
   end
-
-  def decrement_sell_in
-    self.sell_in -= 1
-  end
-
 end
 
 class AgedBrieEvaluator < ItemProcessor
-
+  include Perishable
 
   def process
     increment_quality
-    decrement_sell_in
+    perish
     age_cheese
   end
 
@@ -134,10 +135,12 @@ class AgedBrieEvaluator < ItemProcessor
 end
 
 class ConjuredEvaluator < ItemProcessor
+  include Perishable
+
   def process
     decrement_quality
+    perish
     self.quality = 0 if broken?
-    decrement_sell_in
   end
 
   private
