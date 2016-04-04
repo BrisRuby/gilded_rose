@@ -1,9 +1,10 @@
 def update_quality(items)
   items.each do |item|
-    item_evaluator = ItemEvaluator.new(item)
-    item_evaluator.process
+    decorator = DecoratorFactory.new(item).decorator
+    decorator.process
   end
 end
+
 
 class ItemEvaluator < SimpleDelegator
   def step_1
@@ -65,6 +66,18 @@ class ItemEvaluator < SimpleDelegator
   end
 end
 
+class SulfurasEvaluator < ItemEvaluator
+end
+
+class DecoratorFactory
+  attr_reader :decorator
+  FACTORIES = { 'Sulfuras, Hand of Ragnaros' => SulfurasEvaluator }
+  def initialize(item)
+
+    decorator_class = FACTORIES[item.name] || ItemEvaluator
+    @decorator = decorator_class.new(item)
+  end
+end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
