@@ -20,13 +20,17 @@ class ItemEvaluator < ItemProcessor
 
   def process
     decrement_quality
-    self.sell_in -= 1
+    decrement_sell_in
     if expired?
       decrement_quality
     end
   end
 
   private
+
+  def decrement_sell_in
+    self.sell_in -= 1
+  end
 
   def expired?
     sell_in < 0
