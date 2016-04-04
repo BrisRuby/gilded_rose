@@ -96,16 +96,6 @@ end
 
 class AgedBrieEvaluator < ItemProcessor
 
-  def step_1
-    if quality < 50
-      self.quality += 1
-    end
-  end
-
-  def step_2
-    self.sell_in -= 1
-  end
-
   def step_3
     if sell_in < 0
       if quality < 50
@@ -115,9 +105,22 @@ class AgedBrieEvaluator < ItemProcessor
   end
 
   def process
-    step_1
-    step_2
+    increment_quality
+    decrement_sell_in
     step_3
+  end
+
+
+  private
+
+  def increment_quality
+    if quality < 50
+      self.quality += 1
+    end
+  end
+
+  def decrement_sell_in
+    self.sell_in -= 1
   end
 end
 
