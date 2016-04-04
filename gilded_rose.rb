@@ -95,16 +95,8 @@ class AgedBrieEvaluator < SimpleDelegator
 
   def step_3
     if sell_in < 0
-      if name != 'Aged Brie'
-        if name != 'Backstage passes to a TAFKAL80ETC concert'
-          if quality > 0
-            self.quality -= 1
-          end
-        end
-      else
-        if quality < 50
-          self.quality += 1
-        end
+      if quality < 50
+        self.quality += 1
       end
     end
   end
