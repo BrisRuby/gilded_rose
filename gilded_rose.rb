@@ -1,9 +1,7 @@
 def update_quality(items)
   items.each do |item|
-    quality_adjuster = ItemEvaluator.new(item)
-    quality_adjuster.step_1
-    quality_adjuster.step_2
-    quality_adjuster.step_3
+    item_evaluator = ItemEvaluator.new(item)
+    item_evaluator.process
   end
 end
 
@@ -60,6 +58,11 @@ class ItemEvaluator < SimpleDelegator
     end
   end
 
+  def process
+    step_1
+    step_2
+    step_3
+  end
 end
 
 
