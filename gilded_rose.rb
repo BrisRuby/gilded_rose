@@ -81,7 +81,7 @@ class PassEvaluator < SimpleDelegator
   end
 end
 
-class AgedBrieEvaluator < ItemEvaluator
+class AgedBrieEvaluator < SimpleDelegator
 
   def step_1
     if quality < 50
@@ -107,6 +107,12 @@ class AgedBrieEvaluator < ItemEvaluator
         end
       end
     end
+  end
+
+  def process
+    step_1
+    step_2
+    step_3
   end
 end
 
